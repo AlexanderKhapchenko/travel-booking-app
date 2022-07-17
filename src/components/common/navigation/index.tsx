@@ -1,11 +1,25 @@
-import React, {FC, HTMLAttributes} from 'react';
+import React, {FC, HTMLAttributes, useState} from 'react';
 import styles from "./navigation.module.scss";
 import * as Image from "../../../assets";
-import {Button} from "../../basic";
 import Profile from "./profile";
 import Item from "./item";
+import {getUsername, unsetLoginSession} from "../../../services/authService";
+import {useNavigate} from "react-router-dom";
+import {Routes} from "../../../constants/routes";
 
 const Navigation: FC<HTMLAttributes<HTMLElement>> = (props) => {
+
+    const [username, setUsername] = useState(() => {
+        return getUsername();
+    });
+
+    const navigate = useNavigate();
+
+    const onSignOut = () => {
+        unsetLoginSession();
+        setUsername(null);
+        navigate(Routes.SignIn);
+    }
 
     const items =
         [
@@ -26,7 +40,7 @@ const Navigation: FC<HTMLAttributes<HTMLElement>> = (props) => {
                 spanClass: styles.visuallyHidden,
                 imgUrl: Image.User,
                 imgAlt: 'profile icon',
-                childComponent: <Profile username={"John Doe"}/>
+                childComponent: <Profile username={username} onSignOut={onSignOut}/>
             }
         ];
 

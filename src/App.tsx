@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/common";
-import {Footer} from "./components/common";
 import {BrowserRouter as Router} from "react-router-dom";
+import {Routing} from "./components/containers";
+import {useLocalStorage} from "./components/hooks/useLocaleStorage";
 
 function App() {
   return (
     <Router>
-        <Header/>
-        <Footer/>
+        {/*<Routing isAuthorized={Boolean(username)} setUsername={setUsername} removeUsername={removeUsername}/>*/}
+        <Routing/>
     </Router>
   );
 }

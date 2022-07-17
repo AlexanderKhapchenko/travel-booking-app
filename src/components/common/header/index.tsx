@@ -1,13 +1,21 @@
 import React from 'react';
 import styles from './header.module.scss';
 import {Navigation} from "../index";
+import {Link} from "react-router-dom";
+import {Routes} from "../../../constants/routes";
 
-const Header = () => {
+interface IHeaderProps {
+    needNavigation?: boolean
+}
+
+const Header: React.FC<IHeaderProps> = (props) => {
+    const {needNavigation} = props;
+
     return (
         <header className={styles.header}>
             <div className={styles.header__inner}>
-                <a href="./index.html" className={styles.header__logo}>Travel App</a>
-                <Navigation className={styles.header__nav}/>
+                <Link to={Routes.Main} className={styles.header__logo}>Travel App</Link>
+                {needNavigation && <Navigation className={styles.header__nav}/>}
             </div>
         </header>
     );

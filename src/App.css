@@ -93,6 +93,8 @@ body {
 
 main {
   display: flex;
+  align-items: center;
+  min-height: calc(100vh - 84px - 69px);
   flex-grow: 1;
   flex-direction: column;
 }
