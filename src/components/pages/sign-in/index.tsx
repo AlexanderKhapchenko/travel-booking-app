@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from "./sign-in.module.scss";
 import {Button} from "../../basic";
 import {Link} from "react-router-dom";
@@ -6,6 +6,9 @@ import {Routes} from "../../../constants/routes";
 
 
 const SignIn = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     return (
         <main className={styles.signInPage}>
             <h1 className={styles.visuallyHidden}>Travel App</h1>
@@ -13,11 +16,11 @@ const SignIn = () => {
                 <h2 className={styles.signInForm__title}>Sign In</h2>
                 <label className={styles.input}>
                     <span className={styles.input__heading}>Email</span>
-                    <input name="email" type="email" required/>
+                    <input name="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)}/>
                 </label>
                 <label className={styles.input}>
                     <span className={styles.input__heading}>Password</span>
-                    <input name="password" type="password" autoComplete="new-password" required/>
+                    <input name="password" type="password" autoComplete="new-password" required value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </label>
                 <Button type="submit">Sign In</Button>
             </form>
