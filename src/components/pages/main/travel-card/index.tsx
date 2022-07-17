@@ -1,10 +1,20 @@
 import React, {FC} from "react";
 import styles from "./travel-card.module.scss";
 import {ITravelCardProps} from "./interface";
+import {Link} from "react-router-dom";
+import {Routes} from "../../../../constants/routes";
 
 const TravelCard: React.FC<ITravelCardProps> = (props) => {
 
-    const {image, title, duration, level, price} = props;
+    const {image, title, duration, level, price, id} = props;
+
+    const route = Routes.TravelInfo.split('/').map(endpoint => {
+        if(endpoint === ':id') {
+            return id;
+        } else {
+            return endpoint;
+        }
+    }).join('/');
 
     return (
         <li className={styles.tripCard}>
@@ -22,7 +32,7 @@ const TravelCard: React.FC<ITravelCardProps> = (props) => {
                     <strong className={styles.tripPrice__value}>{price} $</strong>
                 </div>
             </div>
-            <a href="./trip.html" className={styles.button}>Discover a trip</a>
+            <Link to={route} className={styles.button}>Discover a trip</Link>
         </li>
     )
 }
