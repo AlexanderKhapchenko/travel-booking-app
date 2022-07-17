@@ -1,11 +1,12 @@
-interface ITravelList {
-    createdAt: string
-    description: string
-    id: string
-    image: string
-    level: string
-    price: number
-    title: string
+export interface ITravelListResponse {
+    createdAt: string,
+    description: string,
+    id: string,
+    image: string,
+    level: string,
+    price: number,
+    title: string,
+    duration: number
 }
 
 interface IBookingList {
@@ -23,7 +24,7 @@ interface IBookingList {
     "createdAt": string
 }
 
-export const getTravelList = async (): Promise<Array<ITravelList>> => {
+export const getTravelList = async (): Promise<Array<ITravelListResponse>> => {
     const response = await fetch('https://raw.githubusercontent.com/BinaryStudioAcademy/react-homework/production/homework/data/trips.json');
     const result = await response.json();
     return result;
