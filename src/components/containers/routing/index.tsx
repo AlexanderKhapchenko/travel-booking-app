@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes as Switch, Route} from 'react-router-dom';
 import {Routes} from "../../../constants/routes";
-import {Bookings, SignIn, SignUp, Trip} from "../../pages";
+import {Bookings, Main, SignIn, SignUp, Trip} from "../../pages";
 import {PublicRoute, PrivateRoute} from "../index";
 import {setLoginSession} from "../../../services/authService";
 
@@ -31,7 +31,7 @@ const Routing = () => {
             <Route
                 path={Routes.Main}
                 element={
-                    <PrivateRoute component={Trip}/>
+                    <PrivateRoute component={Main}/>
                 }
             />
         </Switch>
