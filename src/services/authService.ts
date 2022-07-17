@@ -2,7 +2,7 @@ import { setLocalStorageItem, getObjectFromLocalStorage } from "./localStorageHe
 
 export const isSignedIn = () => {
     const user = getObjectFromLocalStorage('user');
-    return user ? true : false;
+    return !!user;
 };
 
 export const getUsername = () => {
