@@ -1,4 +1,4 @@
-import {IBooking, ITravel} from "./interfaces";
+import {IBooking, ITravel} from "../hooks/interfaces";
 
 export const defaultTravel: ITravel[] = [
     {
