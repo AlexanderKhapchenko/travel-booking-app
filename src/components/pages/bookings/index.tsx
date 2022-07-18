@@ -1,42 +1,29 @@
 import React from "react";
 import styles from "./bookings.module.scss";
-import {Button} from "../../basic";
+import {useBookingList} from "../../../hooks/useBookingList";
+import BookingCard from "./booking-card";
 
 const Bookings = () => {
+    const [bookings, setBookings] = useBookingList();
+
+    const deleteCard = (id: string) => {
+        const indexMessage = bookings.findIndex(booking => booking.id === id);
+        const before = bookings.slice(0, indexMessage);
+        const after = bookings.slice(indexMessage + 1);
+        const newBookings = [...before, ...after];
+        setBookings(newBookings);
+    }
+
     return (
         <main className={styles.bookingsPage}>
             <h1 className={styles.visuallyHidden}>Travel App</h1>
             <ul className={styles.bookings__list}>
-                <li className={styles.booking}>
-                    <h3 className={styles.booking__title}>Iceland</h3>
-                    <span>2 guests</span>
-                    <span>13.07.2022</span>
-                    <span>14000 $</span>
-                    <Button className={styles.booking__cancel} title="Cancel booking">
-                        <span className={styles.visuallyHidden}>Cancel booking</span>
-                        ×
-                    </Button>
-                </li>
-                <li className={styles.booking}>
-                    <h3 className={styles.booking__title}>Iceland</h3>
-                    <span>2 guests</span>
-                    <span>30.09.2022</span>
-                    <span>14000 $</span>
-                    <Button className={styles.booking__cancel} title="Cancel booking">
-                        <span className={styles.visuallyHidden}>Cancel booking</span>
-                        ×
-                    </Button>
-                </li>
-                <li className={styles.booking}>
-                    <h3 className={styles.booking__title}>Iceland</h3>
-                    <span>2 guests</span>
-                    <span>10.11.2022</span>
-                    <span>14000 $</span>
-                    <Button className={styles.booking__cancel} title="Cancel booking">
-                        <span className={styles.visuallyHidden}>Cancel booking</span>
-                        ×
-                    </Button>
-                </li>
+                {bookings.map(booking => {
+                    const {guests, date, totalPrice, trip: {title}, id} = booking;
+                    return (
+                        <BookingCard key={id} onDelete={() => deleteCard(id)} title={title} quests={guests} date={date} totalPrice={totalPrice}/>
+                    )
+                })}
             </ul>
         </main>
     );
