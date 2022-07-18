@@ -2,17 +2,18 @@ import React, {useEffect, useState} from "react";
 import styles from "./main.module.scss";
 import TravelCards from "./travel-cards";
 import {ITravelCardProps} from "./travel-card/interface";
-import {getTravelList, ITravelListResponse} from "../../../services/api";
 import SearchPanel from "./search-panel";
+import {ITravel} from "../../../hooks/interfaces";
+import {useTravelList} from "../../../hooks/useTravelList";
 
 const Main = () => {
 
-    const [cards, setCards] = useState<ITravelCardProps[]>();
+    const [cards, setCards] = useTravelList();
     const [level, setLevel] = useState('');
     const [duration, setDuration] = useState('');
     const [term, setTerm] = useState('');
 
-    const formattedCards = (cards: ITravelListResponse[]): ITravelCardProps[] => {
+    const formattedCards = (cards: ITravel[]): ITravelCardProps[] => {
         const newCards = cards.map(card => {
             const {image, title, duration, price, level, description, id} = card;
             return {
@@ -30,16 +31,6 @@ const Main = () => {
         });
         return newCards;
     }
-
-    useEffect(() => {
-        async function callApi() {
-            const cardsRaw = await getTravelList();
-            const cards = formattedCards(cardsRaw);
-            setCards(cards);
-        }
-
-        callApi();
-    }, []);
 
     const filtered = (cards: ITravelCardProps[]) => {
         let filteredCards = cards;
@@ -70,7 +61,8 @@ const Main = () => {
         });
     }
 
-    const visibleCards = cards && filtered(searchPost(cards, term));
+    const normalizeCards = formattedCards(cards);
+    const visibleCards = cards && filtered(searchPost(normalizeCards, term));
 
     return (
         <main>
