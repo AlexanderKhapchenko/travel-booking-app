@@ -1,22 +1,35 @@
 import React, {useEffect, useState} from "react";
 import styles from "./trip.module.scss";
 import {Button} from "../../basic";
-import * as Image from "../../../assets";
 import {useParams} from "react-router-dom";
-import {getById, ITravelListResponse} from "../../../services/api";
+import Modal from "./modal";
+import {useTravelList} from "../../../hooks/useTravelList";
+import {IBooking, ITravel} from "../../../hooks/interfaces";
+import {useBookingList} from "../../../hooks/useBookingList";
 
 const Trip = () => {
-    const [card, setCard] = useState<ITravelListResponse>()
+    const [cards, setCards] = useTravelList();
+    const [bookings, setBookings] = useBookingList();
+
     const params = useParams();
 
-    useEffect(() => {
-        async function callApi() {
-            const card = await getById(params.id as string);
-            setCard(card);
-        }
-        callApi();
-    }, []);
+    const [card, setCard] = useState(() => {
+        return cards.find((card: ITravel) => {
+            if(card.id === params.id) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    })
 
+    const addBooking = (newBooking: IBooking) => {
+        const newBookings = [...bookings, newBooking];
+        setBookings(newBookings);
+    }
+
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
         card
@@ -39,9 +52,10 @@ const Trip = () => {
                         <span>Price</span>
                         <strong className={styles.tripPrice__value}>{card.price} $</strong>
                     </div>
-                    <Button className={styles.trip__button}>Book a trip</Button>
+                    <Button className={styles.trip__button} onClick={() => setIsModalOpen(true)}>Book a trip</Button>
                 </div>
             </div>
+                {isModalOpen && <Modal addBooking={addBooking} card={card} onClose={() => setIsModalOpen(false)}/>}
         </main>
         : null
     );
