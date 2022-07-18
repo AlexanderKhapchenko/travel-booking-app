@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import styles from "./sign-up.module.scss";
-import {Button} from "../../basic";
+import {Button, Input} from "../../basic";
 import {Link} from "react-router-dom";
 import {Routes} from "../../../constants/routes";
 
@@ -51,18 +51,31 @@ const SignUp: React.FC<ISignInProps> = (props) => {
             <h1 className={styles.visuallyHidden}>Travel App</h1>
             <form className={styles.signUpForm} autoComplete="off" onSubmit={onSubmit}>
                 <h2 className={styles.signUpForm__title}>Sign Up</h2>
-                <label className={styles.input}>
-                    <span className={styles.input__heading}>Full name</span>
-                    <input name="full-name" type="text" required value={name} onChange={(e) => setName(e.target.value)}/>
-                </label>
-                <label className={styles.input}>
-                    <span className="input__heading">Email</span>
-                    <input name="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)}/>
-                </label>
-                <label className={styles.input}>
-                    <span className={styles.input__heading}>Password</span>
-                    <input name="password" type="password" autoComplete="new-password" required value={password} onChange={(e) => setPassword(e.target.value)}/>
-                </label>
+                <Input
+                    title="Full name"
+                    name="full-name"
+                    type="text"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <Input
+                    title="Email"
+                    name="email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <Input
+                    title="Password"
+                    name="password"
+                    type="password"
+                    autoComplete="new-password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
                 <Button className="button" type="submit">Sign Up</Button>
             </form>
             <span>
