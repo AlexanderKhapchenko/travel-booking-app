@@ -4,4 +4,5 @@ export const Routes = {
     SignIn: '/sign-in',
     TravelInfo: '/trip/:id',
     Booking: '/bookings',
+    Any: '*'
 }

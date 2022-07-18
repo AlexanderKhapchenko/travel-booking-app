@@ -40,6 +40,12 @@ const Routing = () => {
                     <PrivateRoute component={Trip}/>
                 }
             />
+            <Route
+                path={Routes.Any}
+                element={
+                    <PrivateRoute component={Main}/>
+                }
+            />
         </Switch>
     )
 }
