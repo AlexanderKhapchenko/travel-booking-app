@@ -11,7 +11,7 @@ const Input: React.FC<IInputProps> = (props) => {
 
     return (
         <label className={styles.input}>
-            <span className={visuallyHidden ? styles.visuallyHidden : styles.input__heading}>Number of guests</span>
+            <span className={visuallyHidden ? styles.visuallyHidden : styles.input__heading}>{title}</span>
             <input className={`${styles.inputValue} ${className}`} {...inputProps}/>
         </label>
     );
