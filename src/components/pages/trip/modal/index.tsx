@@ -3,6 +3,8 @@ import styles from "./modal.module.scss";
 import Button from "../../../basic/button";
 import {Input} from "../../../basic";
 import {ITravel} from "../../../../hooks/interfaces";
+import * as Image from "../../../../assets";
+import {TripInfo} from "../../../common";
 
 interface IModalProps {
     onClose: Function,
@@ -51,13 +53,7 @@ const Modal: React.FC<IModalProps> = ({onClose, card, addBooking}) => {
             <div className={styles.tripPopup}>
                 <button className={styles.tripPopup__close} onClick={() => onClose()}>×</button>
                 <form className={styles.tripPopup__form} autoComplete="off" onSubmit={onSubmit}>
-                    <div className={styles.tripInfo}>
-                        <h3 className={styles.tripInfo__title}>{card.title}</h3>
-                        <div className={styles.tripInfo__content}>
-                            <span className={styles.tripInfo__duration}><strong>{card.duration}</strong> days</span>
-                            <span className={styles.tripInfo__level}>{card.level}</span>
-                        </div>
-                    </div>
+                    <TripInfo title={card.title} level={card.level} duration={card.duration}/>
                     <Input
                         title="Date"
                         name="date"

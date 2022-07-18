@@ -36,7 +36,6 @@
 .tripInfo__duration {
   min-width: 120px;
   padding-left: 25px;
-  //background-image: url('../images/calendar.svg');
   background-repeat: no-repeat;
   background-position: 0 50%;
   background-size: 15px;
@@ -73,4 +72,8 @@
   &:hover {
     background-color: var(--color-blue-300);
   }
+}
+
+.tripCard__img {
+  height: 210px;
 }
