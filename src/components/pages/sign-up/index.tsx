@@ -2,7 +2,9 @@ import React, {useState} from "react";
 import styles from "./sign-up.module.scss";
 import {Button, Input} from "../../basic";
 import {Link} from "react-router-dom";
-import {Routes} from "../../../constants/routes";
+import {Routes} from "../../../common/enums/routes/routes";
+import {useDispatch} from "react-redux";
+import {authActions} from "../../../store/actions";
 
 interface ISignInProps {
     setUsername: Function
@@ -15,11 +17,19 @@ const SignUp: React.FC<ISignInProps> = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const dispatch = useDispatch();
+
     const onSubmit = () => {
         try{
             validationName(name);
             validationGmail(email);
             validationPassword(password);
+
+            dispatch(authActions.signUp({
+                fullName: name,
+                email,
+                password
+            }) as any);
 
             setUsername(name);
         }catch({message}){

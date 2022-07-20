@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './header.module.scss';
 import {Navigation} from "../index";
 import {Link} from "react-router-dom";
-import {Routes} from "../../../constants/routes";
+import {Routes} from "../../../common/enums/routes/routes";
 
 interface IHeaderProps {
     needNavigation?: boolean

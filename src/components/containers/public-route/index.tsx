@@ -1,8 +1,8 @@
 import React from "react";
 import {RouteProps, Navigate} from "react-router-dom";
 import {Footer, Header} from "../../common";
-import {Routes} from "../../../constants/routes";
-import {isSignedIn} from "../../../services/authService";
+import {Routes} from "../../../common/enums/routes/routes";
+import {isSignedIn} from "../../../services/auth/auth.service";
 
 interface IPublicRouteProps extends RouteProps {
     needHeader?: boolean;

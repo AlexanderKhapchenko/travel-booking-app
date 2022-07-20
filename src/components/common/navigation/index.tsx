@@ -3,9 +3,9 @@ import styles from "./navigation.module.scss";
 import * as Image from "../../../assets";
 import Profile from "./profile";
 import Item from "./item";
-import {getUsername, unsetLoginSession} from "../../../services/authService";
+import {getUsername, unsetLoginSession} from "../../../services/auth/auth.service";
 import {useNavigate} from "react-router-dom";
-import {Routes} from "../../../constants/routes";
+import {Routes} from "../../../common/enums/routes/routes";
 
 const Navigation: FC<HTMLAttributes<HTMLElement>> = (props) => {
 

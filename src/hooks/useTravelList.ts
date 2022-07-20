@@ -1,5 +1,5 @@
 import {useLocalStorage} from "./useLocalStorage";
-import {defaultTravel} from "../constants/default-value";
+import {defaultTravel} from "../common/constants/default-value";
 import {ITravel} from "./interfaces";
 import React from "react";
 

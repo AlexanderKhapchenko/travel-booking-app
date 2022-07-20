@@ -1,6 +1,6 @@
 import React from "react";
 import {useLocalStorage} from "./useLocalStorage";
-import {defaultBooking} from "../constants/default-value";
+import {defaultBooking} from "../common/constants/default-value";
 import {IBooking} from "./interfaces";
 
 

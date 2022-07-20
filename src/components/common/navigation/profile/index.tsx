@@ -2,7 +2,7 @@ import React, {HTMLAttributes} from "react";
 import styles from './profile.module.scss';
 import * as Image from "../../../../assets";
 import {Button} from "../../../basic";
-import {unsetLoginSession} from "../../../../services/authService";
+import {unsetLoginSession} from "../../../../services/auth/auth.service";
 
 interface IProfileProps extends HTMLAttributes<HTMLElement>{
     username: string,

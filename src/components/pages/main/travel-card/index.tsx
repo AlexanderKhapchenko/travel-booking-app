@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import styles from "./travel-card.module.scss";
 import {ITravelCardProps} from "./interface";
 import {Link} from "react-router-dom";
-import {Routes} from "../../../../constants/routes";
+import {Routes} from "../../../../common/enums/routes/routes";
 import * as Image from '../../../../assets';
 import {TripInfo, TripPrice} from "../../../common";
 

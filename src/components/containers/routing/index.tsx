@@ -1,10 +1,9 @@
 import React from "react";
 import { Routes as Switch, Route} from 'react-router-dom';
-import {Routes} from "../../../constants/routes";
+import {Routes} from "../../../common/enums/routes/routes";
 import {Bookings, Main, SignIn, SignUp, Trip} from "../../pages";
 import {PublicRoute, PrivateRoute} from "../index";
-import {setLoginSession} from "../../../services/authService";
-
+import {setLoginSession} from "../../../services/auth/auth.service";
 
 const Routing = () => {
 
