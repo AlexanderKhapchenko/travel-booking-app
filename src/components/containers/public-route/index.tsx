@@ -3,6 +3,8 @@ import {RouteProps, Navigate} from "react-router-dom";
 import {Footer, Header} from "../../common";
 import {Routes} from "../../../common/enums/routes/routes";
 import {isSignedIn} from "../../../services/auth/auth.service";
+import {TypedUseSelectorHook, useSelector} from "react-redux";
+import {RootState} from "../../../store/store";
 
 interface IPublicRouteProps extends RouteProps {
     needHeader?: boolean;
@@ -11,8 +13,13 @@ interface IPublicRouteProps extends RouteProps {
 
 const PublicRoute = (props: IPublicRouteProps) => {
     const {needHeader, needFooter, element} = props;
+    const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-    const isAuthorized = isSignedIn();
+    const {token} = useAppSelector(({authReducer})=>({
+        token: authReducer.user.token
+    }));
+
+    const isAuthorized = Boolean(token);
 
     return (
         isAuthorized

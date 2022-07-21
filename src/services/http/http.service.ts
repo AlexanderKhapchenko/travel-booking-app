@@ -14,22 +14,6 @@ class Http {
     this.token = token;
   }
 
-  // public auth(username: string, password: string): Promise<IAuth> {
-  //   return this.load(AuthApiPath.SIGN_IN, {
-  //     method: HttpMethod.POST,
-  //     contentType: ContentType.JSON,
-  //     payload: {email: username, password: password}
-  //   });
-  // }
-
-  // public register(fullName: string, password: string, email: string): Promise<IAuth> {
-  //   return this.load(AuthApiPath.SIGN_UP, {
-  //     method: HttpMethod.POST,
-  //     contentType: ContentType.JSON,
-  //     payload: {fullName, password, email}
-  //   });
-  // }
-
   public getAuthenticatedUser(): Promise<IAuth> {
     return this.load(AuthApiPath.AUTHENTICATED_USER, {
       method: HttpMethod.GET,
@@ -39,16 +23,19 @@ class Http {
   }
 
   load(url: string, options :IRequestOptions) {
-    const { method = HttpMethod.GET, payload = null, contentType, needAuthorization } = options;
+    const { method = HttpMethod.GET, payload = null, contentType, needAuthorization = false, id } = options;
     const headers = this.getHeaders({
       contentType,
-      needAuthorization
+      needAuthorization,
+      accessToken: this.token.getToken() || '',
     });
 
-    return fetch(this.getFullUrl(url), {
+    const body = payload ? JSON.stringify(payload) : null
+
+    return fetch(this.getFullUrl(url, id as string), {
       method,
       headers,
-      body: JSON.stringify(payload),
+      body,
     })
       .then(this.checkStatus)
       .then(this.parseJSON)
@@ -61,8 +48,8 @@ class Http {
       .catch(this.throwError);
   }
 
-  private getFullUrl(basePath: string): string {
-    return `${this.baseUrl}${basePath}`;
+  private getFullUrl(basePath: string, id: string): string {
+    return `${this.baseUrl}${basePath}${id ? `/${id}` : ''}`;
   }
 
   getHeaders({ contentType, needAuthorization, accessToken }: Partial<IRequestOptions>) {
@@ -72,7 +59,7 @@ class Http {
       headers.append(HttpHeader.CONTENT_TYPE, contentType);
     }
 
-    if (!needAuthorization) {
+    if (needAuthorization) {
       headers.append(HttpHeader.AUTHORIZATION, `Bearer ${accessToken}`)
     }
 

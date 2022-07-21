@@ -4,6 +4,7 @@ export interface IRequestOptions  {
     payload?: any;
     contentType: string;
     accessToken?: string;
+    id?: string
 }
 
 export interface IAuth {

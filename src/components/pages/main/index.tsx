@@ -5,10 +5,24 @@ import {ITravelCardProps} from "./travel-card/interface";
 import SearchPanel from "./search-panel";
 import {ITravel} from "../../../hooks/interfaces";
 import {useTravelList} from "../../../hooks/useTravelList";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../../store/store";
+import {tripsActions} from "../../../store/actions";
 
 const Main = () => {
 
-    const [cards, setCards] = useTravelList();
+    const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(tripsActions.getAll() as any);
+    }, [dispatch])
+
+    const {cards} = useAppSelector(({tripsReducer})=>({
+        cards: tripsReducer.trips
+    }));
+
+
     const [level, setLevel] = useState('');
     const [duration, setDuration] = useState('');
     const [term, setTerm] = useState('');

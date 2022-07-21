@@ -46,7 +46,7 @@ export class Auth {
         });
     }
 
-    getAuthenticatedUser(): Promise<IAuth> {
+    getAuthenticatedUser() {
         return this.http.load(AuthApiPath.AUTHENTICATED_USER, {
             method: HttpMethod.GET,
             contentType: ContentType.JSON,

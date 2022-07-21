@@ -7,22 +7,26 @@ import {useTravelList} from "../../../hooks/useTravelList";
 import {IBooking, ITravel} from "../../../hooks/interfaces";
 import {useBookingList} from "../../../hooks/useBookingList";
 import {TripDescription, TripInfo, TripPrice} from "../../common";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import { tripsActions } from "../../../store/actions";
+import {RootState} from "../../../store/store";
 
 const Trip = () => {
-    const [cards, setCards] = useTravelList();
+    const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
     const [bookings, setBookings] = useBookingList();
 
     const params = useParams();
 
-    const [card, setCard] = useState(() => {
-        return cards.find((card: ITravel) => {
-            if(card.id === params.id) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-    })
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if(params.id) {
+            dispatch(tripsActions.getOne({id: params.id}) as any)
+        }
+    }, [dispatch, params.id]);
+
+    const {card} = useAppSelector(({tripsReducer})=>({
+        card: tripsReducer.trip
+    }));
 
     const addBooking = (newBooking: IBooking) => {
         const newBookings = [...bookings, newBooking];

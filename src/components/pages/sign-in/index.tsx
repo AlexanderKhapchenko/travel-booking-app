@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import styles from "./sign-in.module.scss";
 import {Button, Input} from "../../basic";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Routes} from "../../../common/enums/routes/routes";
 import {useDispatch} from "react-redux";
 import {authActions} from "../../../store/actions";
@@ -12,7 +12,7 @@ const SignIn = () => {
     const [password, setPassword] = useState('');
 
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -20,6 +20,8 @@ const SignIn = () => {
             email,
             password
         }) as any);
+
+        navigate(Routes.Main);
     }
 
     return (
