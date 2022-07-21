@@ -8,8 +8,13 @@ import {useTravelList} from "../../../hooks/useTravelList";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import {tripsActions} from "../../../store/actions";
+import {DataStatus} from "../../../common/enums/app/app";
+import Loader from "../../common/loader/loader";
 
 const Main = () => {
+    const [level, setLevel] = useState('');
+    const [duration, setDuration] = useState('');
+    const [term, setTerm] = useState('');
 
     const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
     const dispatch = useDispatch();
@@ -18,14 +23,18 @@ const Main = () => {
         dispatch(tripsActions.getAll() as any);
     }, [dispatch])
 
-    const {cards} = useAppSelector(({tripsReducer})=>({
-        cards: tripsReducer.trips
+    const {cards, status} = useAppSelector(({tripsReducer})=>({
+        cards: tripsReducer.trips,
+        status: tripsReducer.status
     }));
 
-
-    const [level, setLevel] = useState('');
-    const [duration, setDuration] = useState('');
-    const [term, setTerm] = useState('');
+    if (status === DataStatus.PENDING) {
+        return (
+            <main>
+                <Loader />
+            </main>
+        );
+    }
 
     const formattedCards = (cards: ITravel[]): ITravelCardProps[] => {
         const newCards = cards.map(card => {

@@ -1,31 +1,36 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import styles from "./bookings.module.scss";
 import BookingCard from "./booking-card";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import { bookingsActions } from "../../../store/actions";
+import {DataStatus} from "../../../common/enums/app/data-status.enum";
+import Loader from "../../common/loader/loader";
+import {IBooking} from "../../../services/bookings/bookings.service";
 
 const Bookings = () => {
     const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
     const dispatch = useDispatch();
+
+    const {bookings, status} = useAppSelector(({bookingsReducer})=>({
+        bookings: bookingsReducer.bookings,
+        status: bookingsReducer.status
+    }));
+    
     useEffect(() => {
         dispatch(bookingsActions.get() as any)
     }, [dispatch]);
 
-    const {bookings} = useAppSelector(({bookingsReducer})=>({
-        bookings: bookingsReducer.bookings
-    }));
+    const deleteCard = useCallback((booking: IBooking) => {
+        dispatch(bookingsActions.deleteById({booking}) as any);
+    }, [dispatch])
 
-
-    //const [bookings, setBookings] = useBookingList();
-
-    const deleteCard = (id: string) => {
-        dispatch(bookingsActions.deleteById({id}) as any);
-        // const indexMessage = bookings.findIndex(booking => booking.id === id);
-        // const before = bookings.slice(0, indexMessage);
-        // const after = bookings.slice(indexMessage + 1);
-        // const newBookings = [...before, ...after];
-        //setBookings(newBookings);
+    if (status === DataStatus.PENDING) {
+        return (
+            <main>
+                <Loader />
+            </main>
+        );
     }
 
     return (
@@ -35,7 +40,7 @@ const Bookings = () => {
                 {bookings.map(booking => {
                     const {guests, date, totalPrice, trip: {title}, id} = booking;
                     return (
-                        <BookingCard key={id} onDelete={() => deleteCard(id)} title={title} quests={guests} date={date} totalPrice={totalPrice}/>
+                        <BookingCard key={id} onDelete={() => deleteCard(booking)} title={title} quests={guests} date={date} totalPrice={totalPrice}/>
                     )
                 })}
             </ul>

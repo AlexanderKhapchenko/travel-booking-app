@@ -11,6 +11,8 @@ import {TripDescription, TripInfo, TripPrice} from "../../common";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import { tripsActions, bookingsActions } from "../../../store/actions";
 import {RootState} from "../../../store/store";
+import {DataStatus} from "../../../common/enums/app/data-status.enum";
+import Loader from "../../common/loader/loader";
 
 const Trip = () => {
     const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -25,18 +27,26 @@ const Trip = () => {
         }
     }, [dispatch, params.id]);
 
-    const {card, userId} = useAppSelector(({tripsReducer, authReducer})=>({
+    const {card, userId, status} = useAppSelector(({tripsReducer, authReducer})=>({
         card: tripsReducer.trip,
-        userId: authReducer.user.user!.id
+        userId: authReducer.user.user!.id,
+        status: tripsReducer.status
     }));
 
     const addBooking = (newBook: IBookingPost) => {
-        console.log(`adding ${newBook}`);
-
         dispatch(bookingsActions.post({book: newBook}) as any)
+        setIsModalOpen(false);
     }
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    if (status === DataStatus.PENDING) {
+        return (
+            <main>
+                <Loader />
+            </main>
+        );
+    }
 
     return (
         card

@@ -49,7 +49,7 @@ const reducer = createReducer(initialState, (builder) => {
     });
     builder.addCase(deleteById.fulfilled, (state, { payload }) => {
         const { booking } = payload;
-        state.booking = booking;
+        state.bookings = state.bookings.filter((it) => it.id !== booking.id);
         state.status = DataStatus.SUCCESS;
     });
 

@@ -30,22 +30,22 @@ class Http {
       accessToken: this.token.getToken() || '',
     });
 
-    const body = payload ? JSON.stringify(payload) : null
+    const body = payload ? JSON.stringify(payload) : null;
 
     return fetch(this.getFullUrl(url, id as string), {
       method,
       headers,
       body,
     })
-      .then(this.checkStatus)
-      .then(this.parseJSON)
-      .then((data) => {
-        if(data.token) {
-          this.token.setToken(data.token);
-        }
-        return data;
-      })
-      .catch(this.throwError);
+        .then(this.checkStatus)
+        .then(this.parseJSON)
+        .then((data) => {
+          if(data.token) {
+            this.token.setToken(data.token);
+          }
+          return data;
+        })
+        .catch(this.throwError);
   }
 
   private getFullUrl(basePath: string, id: string): string {
@@ -77,7 +77,8 @@ class Http {
   }
 
   parseJSON(response: Response) {
-    return response.json();
+
+    return response.status === 204 ? '' : response.json();
   }
 
   throwError(err: Error) {

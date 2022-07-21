@@ -17,7 +17,7 @@ export class Trips {
         });
     }
 
-    getOne(id: string) { 
+    getOne(id: string) {
         return this.http.load(TripsApiPath.BASE, {
             method: HttpMethod.GET,
             id,
