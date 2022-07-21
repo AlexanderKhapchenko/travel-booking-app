@@ -1,18 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { auth, trips } from '../services/services';
-import { authReducer, tripsReducer } from './root-reducer';
+import { auth, trips, bookings } from '../services/services';
+import { authReducer, tripsReducer, bookingsReducer } from './root-reducer';
 
 const store = configureStore({
     reducer: {
         authReducer,
-        tripsReducer
+        tripsReducer,
+        bookingsReducer
     },
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware({
             thunk: {
                 extraArgument: {
                     auth,
-                    trips
+                    trips,
+                    bookings
                 },
             },
         });

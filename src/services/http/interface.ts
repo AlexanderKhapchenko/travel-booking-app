@@ -2,7 +2,7 @@ export interface IRequestOptions  {
     needAuthorization?: boolean;
     method:string;
     payload?: any;
-    contentType: string;
+    contentType?: string;
     accessToken?: string;
     id?: string
 }

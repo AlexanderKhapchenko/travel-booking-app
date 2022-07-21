@@ -5,6 +5,7 @@ import { signIn, signUp, authenticatedUser } from './actions';
 interface IInitialState {
     user: {
         user?: {
+            id: string
             email: string,
             password: string,
             fullName: string,

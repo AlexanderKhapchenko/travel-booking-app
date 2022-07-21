@@ -1,17 +1,31 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "./bookings.module.scss";
-import {useBookingList} from "../../../hooks/useBookingList";
 import BookingCard from "./booking-card";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../../store/store";
+import { bookingsActions } from "../../../store/actions";
 
 const Bookings = () => {
-    const [bookings, setBookings] = useBookingList();
+    const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(bookingsActions.get() as any)
+    }, [dispatch]);
+
+    const {bookings} = useAppSelector(({bookingsReducer})=>({
+        bookings: bookingsReducer.bookings
+    }));
+
+
+    //const [bookings, setBookings] = useBookingList();
 
     const deleteCard = (id: string) => {
-        const indexMessage = bookings.findIndex(booking => booking.id === id);
-        const before = bookings.slice(0, indexMessage);
-        const after = bookings.slice(indexMessage + 1);
-        const newBookings = [...before, ...after];
-        setBookings(newBookings);
+        dispatch(bookingsActions.deleteById({id}) as any);
+        // const indexMessage = bookings.findIndex(booking => booking.id === id);
+        // const before = bookings.slice(0, indexMessage);
+        // const after = bookings.slice(indexMessage + 1);
+        // const newBookings = [...before, ...after];
+        //setBookings(newBookings);
     }
 
     return (

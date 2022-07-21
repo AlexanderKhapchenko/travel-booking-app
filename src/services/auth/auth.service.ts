@@ -49,7 +49,6 @@ export class Auth {
     getAuthenticatedUser() {
         return this.http.load(AuthApiPath.AUTHENTICATED_USER, {
             method: HttpMethod.GET,
-            contentType: ContentType.JSON,
             needAuthorization: true,
         });
     }

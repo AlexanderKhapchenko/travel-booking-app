@@ -13,15 +13,13 @@ export class Trips {
     getAll() {
         return this.http.load(TripsApiPath.BASE, {
             method: HttpMethod.GET,
-            contentType: ContentType.JSON,
             needAuthorization: true
         });
     }
 
-    getOne(id: string) {
+    getOne(id: string) { 
         return this.http.load(TripsApiPath.BASE, {
             method: HttpMethod.GET,
-            contentType: ContentType.JSON,
             id,
             needAuthorization: true
         });

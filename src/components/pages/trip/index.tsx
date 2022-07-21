@@ -3,17 +3,18 @@ import styles from "./trip.module.scss";
 import {Button} from "../../basic";
 import {useParams} from "react-router-dom";
 import Modal from "./modal";
-import {useTravelList} from "../../../hooks/useTravelList";
-import {IBooking, ITravel} from "../../../hooks/interfaces";
-import {useBookingList} from "../../../hooks/useBookingList";
+// import {useTravelList} from "../../../hooks/useTravelList";
+// import {IBooking, ITravel} from "../../../hooks/interfaces";
+import {IBookingPost} from "../../../services/bookings/bookings.service";
+// import {useBookingList} from "../../../hooks/useBookingList";
 import {TripDescription, TripInfo, TripPrice} from "../../common";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import { tripsActions } from "../../../store/actions";
+import { tripsActions, bookingsActions } from "../../../store/actions";
 import {RootState} from "../../../store/store";
 
 const Trip = () => {
     const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-    const [bookings, setBookings] = useBookingList();
+    // const [bookings, setBookings] = useBookingList();
 
     const params = useParams();
 
@@ -24,15 +25,16 @@ const Trip = () => {
         }
     }, [dispatch, params.id]);
 
-    const {card} = useAppSelector(({tripsReducer})=>({
-        card: tripsReducer.trip
+    const {card, userId} = useAppSelector(({tripsReducer, authReducer})=>({
+        card: tripsReducer.trip,
+        userId: authReducer.user.user!.id
     }));
 
-    const addBooking = (newBooking: IBooking) => {
-        const newBookings = [...bookings, newBooking];
-        setBookings(newBookings);
-    }
+    const addBooking = (newBook: IBookingPost) => {
+        console.log(`adding ${newBook}`);
 
+        dispatch(bookingsActions.post({book: newBook}) as any)
+    }
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -49,7 +51,7 @@ const Trip = () => {
                     <Button className={styles.trip__button} onClick={() => setIsModalOpen(true)}>Book a trip</Button>
                 </div>
             </div>
-                {isModalOpen && <Modal addBooking={addBooking} card={card} onClose={() => setIsModalOpen(false)}/>}
+                {isModalOpen && <Modal userId={userId} addBooking={addBooking} card={card} onClose={() => setIsModalOpen(false)}/>}
         </main>
         : null
     );

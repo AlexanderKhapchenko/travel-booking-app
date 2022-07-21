@@ -9,10 +9,11 @@ import {TripInfo} from "../../../common";
 interface IModalProps {
     onClose: Function,
     card: ITravel,
-    addBooking: Function
+    addBooking: Function,
+    userId: string,
 }
 
-const Modal: React.FC<IModalProps> = ({onClose, card, addBooking}) => {
+const Modal: React.FC<IModalProps> = ({onClose, card, addBooking, userId}) => {
 
     const [date, setDate] = useState('');
     const [guestsNumber, setGuestsNumber] = useState(1);
@@ -27,21 +28,15 @@ const Modal: React.FC<IModalProps> = ({onClose, card, addBooking}) => {
         }
     }
 
-    const onSubmit = () => {
+    const onSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
         if(date.length > 1 && guestsNumber >= 1 && guestsNumber <= 10) {
             const newBooking = {
-                id: card.id,
-                userId: card.id,
                 tripId: card.id,
+                userId: userId,
                 guests: guestsNumber,
-                date: date,
-                trip: {
-                    title: card.title,
-                    duration: card.duration,
-                    price: card.price
-                },
-                totalPrice: guestsNumber * card.price,
-                createdAt: new Date(),
+                date: (new Date()).toString(),
             }
 
             addBooking(newBooking);
@@ -52,7 +47,7 @@ const Modal: React.FC<IModalProps> = ({onClose, card, addBooking}) => {
         <div className={styles.modal}>
             <div className={styles.tripPopup}>
                 <button className={styles.tripPopup__close} onClick={() => onClose()}>×</button>
-                <form className={styles.tripPopup__form} autoComplete="off" onSubmit={onSubmit}>
+                <form className={styles.tripPopup__form} autoComplete="off" onSubmit={(e) => onSubmit(e)}>
                     <TripInfo title={card.title} level={card.level} duration={card.duration}/>
                     <Input
                         title="Date"
