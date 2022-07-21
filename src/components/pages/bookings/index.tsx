@@ -7,16 +7,16 @@ import { bookingsActions } from "../../../store/actions";
 import {DataStatus} from "../../../common/enums/app/data-status.enum";
 import Loader from "../../common/loader/loader";
 import {IBooking} from "../../../services/bookings/bookings.service";
+import {useAppSelector} from "../../../hooks/useAppSelector";
 
 const Bookings = () => {
-    const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
     const dispatch = useDispatch();
 
     const {bookings, status} = useAppSelector(({bookingsReducer})=>({
         bookings: bookingsReducer.bookings,
         status: bookingsReducer.status
     }));
-    
+
     useEffect(() => {
         dispatch(bookingsActions.get() as any)
     }, [dispatch]);

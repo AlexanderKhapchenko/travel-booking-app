@@ -1,13 +1,14 @@
-import React, {useCallback, useEffect} from "react";
-import {RouteProps, Navigate} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {RouteProps, Navigate, useNavigate} from "react-router-dom";
 import {Footer, Header} from "../../common";
 import {Routes} from "../../../common/enums/routes/routes";
-import {isSignedIn} from "../../../services/auth/auth.service";
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import {IAuth} from "../../../services/http/interface";
-import {RootState} from "../../../store/store";
+import {useAppSelector} from "../../../hooks/useAppSelector";
+import {isHasToken} from "../../../helpers/token";
+import {useDispatch} from "react-redux";
+import Loader from "../../common/loader/loader";
 import {authActions} from "../../../store/actions";
-import {authReducer} from "../../../store/root-reducer";
+import {DataStatus} from "../../../common/enums/app/app";
+
 
 interface IPrivateRouteProps extends RouteProps {
     component: React.ComponentType<any>;
@@ -15,13 +16,34 @@ interface IPrivateRouteProps extends RouteProps {
 
 const PrivateRoute = (props: IPrivateRouteProps) => {
     const {component: Component} = props;
-    const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-    const {token} = useAppSelector(({authReducer})=>({
-        token: authReducer.user.token
-    }));
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {status, user} = useAppSelector(({authReducer})=>{
+        return {
+            status: authReducer.status,
+            user: authReducer.user
+        }
+    });
 
-    const isAuthorized = Boolean(token);
+    useEffect(() => {
+        dispatch(authActions.authenticatedUser() as any);
+    }, [dispatch])
+
+    if (status === DataStatus.PENDING) {
+        return (
+            <main>
+                <Loader />
+            </main>
+        );
+    }
+
+    if(status === DataStatus.ERROR) {
+        navigate(Routes.SignIn);
+    }
+
+
+    const isAuthorized = Boolean(user);
 
     return (
         isAuthorized

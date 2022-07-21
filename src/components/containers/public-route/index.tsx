@@ -1,26 +1,36 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {RouteProps, Navigate} from "react-router-dom";
 import {Footer, Header} from "../../common";
 import {Routes} from "../../../common/enums/routes/routes";
-import {isSignedIn} from "../../../services/auth/auth.service";
-import {TypedUseSelectorHook, useSelector} from "react-redux";
-import {RootState} from "../../../store/store";
+import {useDispatch} from "react-redux";
+import {DataStatus} from "../../../common/enums/app/data-status.enum";
+import Loader from "../../common/loader/loader";
+import {authActions} from "../../../store/actions";
+import {useAppSelector} from "../../../hooks/useAppSelector";
 
-interface IPublicRouteProps extends RouteProps {
-    needHeader?: boolean;
-    needFooter?: boolean;
-}
+const PublicRoute = (props: RouteProps) => {
+    const {element} = props;
+    const dispatch = useDispatch();
+    const {status, user} = useAppSelector(({authReducer})=>{
+        return {
+            status: authReducer.status,
+            user: authReducer.user
+        }
+    });
 
-const PublicRoute = (props: IPublicRouteProps) => {
-    const {needHeader, needFooter, element} = props;
-    const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+    useEffect(() => {
+        dispatch(authActions.authenticatedUser() as any);
+    }, [dispatch])
 
-    const {token} = useAppSelector(({authReducer})=>({
-        token: authReducer.user.token
-    }));
+    if (status === DataStatus.PENDING) {
+        return (
+            <main>
+                <Loader />
+            </main>
+        );
+    }
 
-    const isAuthorized = Boolean(token);
-
+    const isAuthorized = Boolean(localStorage.getItem("token"));
     return (
         isAuthorized
         ? <Navigate to={Routes.Main}/>

@@ -3,19 +3,6 @@ import { DataStatus } from '../../common/enums/app/app';
 import { get, deleteById, post } from './actions';
 import { IBookingPost, IBooking } from '../../services/bookings/bookings.service';
 
-// interface IBooking {
-//     id: string,
-//     title: string,
-//     description: string,
-//     level: string,
-//     duration: number,
-//     price: number,
-//     image: string,
-//     createdAt: string
-// }
-
-
-
 interface IInitialState {
     bookings: Array<IBooking>,
     booking: IBookingPost,

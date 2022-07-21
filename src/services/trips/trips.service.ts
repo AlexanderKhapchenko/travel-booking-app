@@ -1,7 +1,6 @@
 import { TripsApiPath } from "../../common/enums/api/trips-api-path.enum";
 import {THttp} from "../http/http.service";
 import {HttpMethod} from "../../common/enums/http/http";
-import {ContentType} from "../../common/enums/file/file";
 
 export class Trips {
     private http: THttp;

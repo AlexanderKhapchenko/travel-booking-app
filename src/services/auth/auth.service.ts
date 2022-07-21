@@ -1,27 +1,7 @@
 import { THttp} from "../http/http.service";
-import { setLocalStorageItem, getObjectFromLocalStorage } from "../localStorageHelper";
 import {AuthApiPath} from "../../common/enums/api/auth-api-path.enum";
 import {HttpMethod} from "../../common/enums/http/http-method.enum";
 import {ContentType} from "../../common/enums/file/file.enum";
-import {IAuth} from "../http/interface";
-
-
-export const isSignedIn = () => {
-    const user = getObjectFromLocalStorage('user');
-    return !!user;
-};
-
-export const getUsername = () => {
-    return getObjectFromLocalStorage('user');
-}
-
-export const setLoginSession = (user: string) => {
-    setLocalStorageItem('user', user);
-}
-
-export const unsetLoginSession = () => {
-    setLocalStorageItem('user', null);
-}
 
 export class Auth {
     private http: THttp;

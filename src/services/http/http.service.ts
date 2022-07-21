@@ -3,7 +3,6 @@ import {IAuth, IRequestOptions} from "./interface";
 import {AuthApiPath} from "../../common/enums/api/auth-api-path.enum";
 import {ContentType} from "../../common/enums/file/file.enum";
 import {TToken} from "../token/token.service";
-import {ENV} from "../../common/enums/app/app";
 
 class Http {
   private readonly baseUrl: string;
@@ -72,7 +71,6 @@ class Http {
     if (!isOk) {
       throw new Error(`${status}: ${statusText}`);
     }
-
     return response;
   }
 

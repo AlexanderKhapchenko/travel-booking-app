@@ -2,13 +2,12 @@ import React, {useState} from "react";
 import styles from "./modal.module.scss";
 import Button from "../../../basic/button";
 import {Input} from "../../../basic";
-import {ITravel} from "../../../../hooks/interfaces";
-import * as Image from "../../../../assets";
 import {TripInfo} from "../../../common";
+import {ITrip} from "../../../../store/trips/reducer";
 
 interface IModalProps {
     onClose: Function,
-    card: ITravel,
+    card: ITrip,
     addBooking: Function,
     userId: string,
 }
@@ -36,7 +35,7 @@ const Modal: React.FC<IModalProps> = ({onClose, card, addBooking, userId}) => {
                 tripId: card.id,
                 userId: userId,
                 guests: guestsNumber,
-                date: (new Date()).toString(),
+                date: date,
             }
 
             addBooking(newBooking);

@@ -17,3 +17,4 @@ export const signUp = createAsyncThunk(ActionType.SIGN_UP, async ({fullName, pas
 export const authenticatedUser = createAsyncThunk(ActionType.AUTHENTICATED_USER, async (_args, {extra}  ) => ({
     user: await (extra as IExtra).auth.getAuthenticatedUser(),
 }));
+

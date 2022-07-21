@@ -3,20 +3,15 @@ import styles from "./trip.module.scss";
 import {Button} from "../../basic";
 import {useParams} from "react-router-dom";
 import Modal from "./modal";
-// import {useTravelList} from "../../../hooks/useTravelList";
-// import {IBooking, ITravel} from "../../../hooks/interfaces";
 import {IBookingPost} from "../../../services/bookings/bookings.service";
-// import {useBookingList} from "../../../hooks/useBookingList";
 import {TripDescription, TripInfo, TripPrice} from "../../common";
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import { tripsActions, bookingsActions } from "../../../store/actions";
-import {RootState} from "../../../store/store";
 import {DataStatus} from "../../../common/enums/app/data-status.enum";
 import Loader from "../../common/loader/loader";
+import {useAppSelector} from "../../../hooks/useAppSelector";
 
 const Trip = () => {
-    const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-    // const [bookings, setBookings] = useBookingList();
 
     const params = useParams();
 

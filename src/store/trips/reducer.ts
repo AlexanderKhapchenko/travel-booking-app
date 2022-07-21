@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from '../../common/enums/app/app';
 import { getAll, getOne } from './actions';
 
-interface ITrip {
+export interface ITrip {
     id: string,
     title: string,
     description: string,

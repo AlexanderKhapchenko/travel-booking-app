@@ -3,20 +3,19 @@ import styles from "./main.module.scss";
 import TravelCards from "./travel-cards";
 import {ITravelCardProps} from "./travel-card/interface";
 import SearchPanel from "./search-panel";
-import {ITravel} from "../../../hooks/interfaces";
-import {useTravelList} from "../../../hooks/useTravelList";
+import {ITrip} from "../../../store/trips/reducer";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import {tripsActions} from "../../../store/actions";
 import {DataStatus} from "../../../common/enums/app/app";
 import Loader from "../../common/loader/loader";
+import {useAppSelector} from "../../../hooks/useAppSelector";
 
 const Main = () => {
     const [level, setLevel] = useState('');
     const [duration, setDuration] = useState('');
     const [term, setTerm] = useState('');
 
-    const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -36,7 +35,7 @@ const Main = () => {
         );
     }
 
-    const formattedCards = (cards: ITravel[]): ITravelCardProps[] => {
+    const formattedCards = (cards: ITrip[]): ITravelCardProps[] => {
         const newCards = cards.map(card => {
             const {image, title, duration, price, level, description, id} = card;
             return {

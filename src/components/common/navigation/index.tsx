@@ -3,21 +3,23 @@ import styles from "./navigation.module.scss";
 import * as Image from "../../../assets";
 import Profile from "./profile";
 import Item from "./item";
-import {getUsername, unsetLoginSession} from "../../../services/auth/auth.service";
 import {useNavigate} from "react-router-dom";
 import {Routes} from "../../../common/enums/routes/routes";
+import {useAppSelector} from "../../../hooks/useAppSelector";
+import {useDispatch} from "react-redux";
 
 const Navigation: FC<HTMLAttributes<HTMLElement>> = (props) => {
 
-    const [username, setUsername] = useState(() => {
-        return getUsername();
-    });
+    const dispatch = useDispatch();
+
+    const {username} = useAppSelector(({authReducer})=>({
+        username: authReducer.user.user?.fullName,
+    }));
 
     const navigate = useNavigate();
 
     const onSignOut = () => {
-        unsetLoginSession();
-        setUsername(null);
+        localStorage.removeItem('token');
         navigate(Routes.SignIn);
     }
 

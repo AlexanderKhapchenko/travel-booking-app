@@ -6,12 +6,8 @@ import {Routes} from "../../../common/enums/routes/routes";
 import {useDispatch} from "react-redux";
 import {authActions} from "../../../store/actions";
 
-interface ISignInProps {
-    setUsername: Function
-}
 
-const SignUp: React.FC<ISignInProps> = (props) => {
-    const {setUsername} = props;
+const SignUp = () => {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -31,7 +27,6 @@ const SignUp: React.FC<ISignInProps> = (props) => {
                 password
             }) as any);
 
-            setUsername(name);
         }catch({message}){
             alert(message);
         }
