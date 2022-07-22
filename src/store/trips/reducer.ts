@@ -1,7 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from '../../common/enums/app/app';
 import { getAll, getOne } from './actions';
-import {get} from "../bookings/actions";
 
 export interface ITrip {
     id: string,

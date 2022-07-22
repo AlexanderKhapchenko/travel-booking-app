@@ -1,8 +1,7 @@
 import React, {useCallback, useEffect} from "react";
 import styles from "./bookings.module.scss";
 import BookingCard from "./booking-card";
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../store/store";
+import {useDispatch} from "react-redux";
 import { bookingsActions } from "../../../store/actions";
 import {DataStatus} from "../../../common/enums/app/data-status.enum";
 import Loader from "../../common/loader/loader";

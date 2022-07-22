@@ -57,7 +57,7 @@ const Trip = () => {
         ? <main className={styles.tripPage}>
             <h1 className={styles.visuallyHidden}>Travel App</h1>
             <div className={styles.trip}>
-                <img src={card.image} className={styles.trip__img} alt="trip image"/>
+                <img src={card.image} className={styles.trip__img} alt={card.title}/>
                 <div className={styles.trip__content}>
                     <TripInfo title={card.title} duration={card.duration} level={card.level}/>
                     <TripDescription description={card.description}/>
