@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DataStatus } from '../../common/enums/app/app';
 import { getAll, getOne } from './actions';
+import {get} from "../bookings/actions";
 
 export interface ITrip {
     id: string,
@@ -42,6 +43,9 @@ const reducer = createReducer(initialState, (builder) => {
         state.trips = trips;
         state.status = DataStatus.SUCCESS;
     });
+    builder.addCase(getAll.rejected, (state) => {
+        state.status = DataStatus.ERROR;
+    });
 
 
     builder.addCase(getOne.pending, (state) => {
@@ -52,6 +56,10 @@ const reducer = createReducer(initialState, (builder) => {
         state.trip = trip;
         state.status = DataStatus.SUCCESS;
     });
+    builder.addCase(getOne.rejected, (state) => {
+        state.status = DataStatus.ERROR;
+    });
+
 });
 
 export { reducer };

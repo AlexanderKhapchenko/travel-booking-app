@@ -29,6 +29,9 @@ const reducer = createReducer(initialState, (builder) => {
         state.bookings = bookings;
         state.status = DataStatus.SUCCESS;
     });
+    builder.addCase(get.rejected, (state) => {
+        state.status = DataStatus.ERROR;
+    });
 
 
     builder.addCase(deleteById.pending, (state) => {
@@ -39,6 +42,9 @@ const reducer = createReducer(initialState, (builder) => {
         state.bookings = state.bookings.filter((it) => it.id !== booking.id);
         state.status = DataStatus.SUCCESS;
     });
+    builder.addCase(deleteById.rejected, (state) => {
+        state.status = DataStatus.ERROR;
+    });
 
     builder.addCase(post.pending, (state) => {
         state.status = DataStatus.PENDING;
@@ -47,6 +53,9 @@ const reducer = createReducer(initialState, (builder) => {
         const { booking } = payload;
         state.booking = booking;
         state.status = DataStatus.SUCCESS;
+    });
+    builder.addCase(post.rejected, (state) => {
+        state.status = DataStatus.ERROR;
     });
 });
 

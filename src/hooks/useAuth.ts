@@ -9,7 +9,7 @@ export const useAuth = () => {
     const dispatch = useDispatch();
     const {status} = useAppSelector(({authReducer})=>{
         return {
-            status: authReducer.status,
+            status: authReducer.status
         }
     });
 

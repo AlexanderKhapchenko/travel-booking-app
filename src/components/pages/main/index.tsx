@@ -10,11 +10,14 @@ import {tripsActions} from "../../../store/actions";
 import {DataStatus} from "../../../common/enums/app/app";
 import Loader from "../../common/loader/loader";
 import {useAppSelector} from "../../../hooks/useAppSelector";
+import {Routes} from "../../../common/enums/routes/routes.enum";
+import {useNavigate} from "react-router-dom";
 
 const Main = () => {
     const [level, setLevel] = useState('');
     const [duration, setDuration] = useState('');
     const [term, setTerm] = useState('');
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -33,6 +36,10 @@ const Main = () => {
                 <Loader />
             </main>
         );
+    }
+
+    if(status === DataStatus.ERROR) {
+        navigate(Routes.SignIn);
     }
 
     const formattedCards = (cards: ITrip[]): ITravelCardProps[] => {

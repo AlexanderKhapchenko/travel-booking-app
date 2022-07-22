@@ -46,7 +46,7 @@ const reducer = createReducer(initialState, (builder) => {
     });
     builder.addCase(authenticatedUser.fulfilled, (state, { payload }) => {
         const { user } = payload;
-        state.user = user;
+        state.user.user = user;
         state.status = DataStatus.SUCCESS;
     });
     builder.addCase(authenticatedUser.rejected, (state) => {

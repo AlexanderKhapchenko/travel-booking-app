@@ -8,9 +8,12 @@ import {DataStatus} from "../../../common/enums/app/data-status.enum";
 import Loader from "../../common/loader/loader";
 import {IBooking} from "../../../services/bookings/bookings.service";
 import {useAppSelector} from "../../../hooks/useAppSelector";
+import {useNavigate} from "react-router-dom";
+import {Routes} from "../../../common/enums/routes/routes.enum";
 
 const Bookings = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const {bookings, status} = useAppSelector(({bookingsReducer})=>({
         bookings: bookingsReducer.bookings,
@@ -31,6 +34,10 @@ const Bookings = () => {
                 <Loader />
             </main>
         );
+    }
+
+    if(status === DataStatus.ERROR) {
+        navigate(Routes.SignIn);
     }
 
     return (

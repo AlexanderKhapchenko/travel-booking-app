@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import styles from "./trip.module.scss";
 import {Button} from "../../basic";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Modal from "./modal";
 import {IBookingPost} from "../../../services/bookings/bookings.service";
 import {TripDescription, TripInfo, TripPrice} from "../../common";
@@ -10,23 +10,29 @@ import { tripsActions, bookingsActions } from "../../../store/actions";
 import {DataStatus} from "../../../common/enums/app/data-status.enum";
 import Loader from "../../common/loader/loader";
 import {useAppSelector} from "../../../hooks/useAppSelector";
+import {Routes} from "../../../common/enums/routes/routes.enum";
 
 const Trip = () => {
 
     const params = useParams();
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     useEffect(() => {
         if(params.id) {
             dispatch(tripsActions.getOne({id: params.id}) as any)
         }
     }, [dispatch, params.id]);
 
-    const {card, userId, status} = useAppSelector(({tripsReducer, authReducer})=>({
-        card: tripsReducer.trip,
-        userId: authReducer.user.user!.id,
-        status: tripsReducer.status
-    }));
+    const {card, userId, status} = useAppSelector(({tripsReducer, authReducer})=>{
+       console.log(authReducer.user);
+       return {
+           card: tripsReducer.trip,
+           userId: authReducer.user.user!.id,
+           status: tripsReducer.status
+       }
+    });
 
     const addBooking = (newBook: IBookingPost) => {
         dispatch(bookingsActions.post({book: newBook}) as any)
@@ -41,6 +47,9 @@ const Trip = () => {
                 <Loader />
             </main>
         );
+    }
+    if(status === DataStatus.ERROR) {
+        navigate(Routes.SignIn);
     }
 
     return (

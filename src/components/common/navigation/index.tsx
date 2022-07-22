@@ -1,4 +1,4 @@
-import React, {FC, HTMLAttributes, useState} from 'react';
+import React, {FC, HTMLAttributes} from 'react';
 import styles from "./navigation.module.scss";
 import * as Image from "../../../assets";
 import Profile from "./profile";
@@ -6,12 +6,9 @@ import Item from "./item";
 import {useNavigate} from "react-router-dom";
 import {Routes} from "../../../common/enums/routes/routes";
 import {useAppSelector} from "../../../hooks/useAppSelector";
-import {useDispatch} from "react-redux";
 import {LocalKey} from "../../../common/enums/app/app";
 
 const Navigation: FC<HTMLAttributes<HTMLElement>> = (props) => {
-
-    const dispatch = useDispatch();
 
     const {username} = useAppSelector(({authReducer})=>({
         username: authReducer.user.user?.fullName,
