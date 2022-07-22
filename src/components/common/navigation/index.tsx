@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {Routes} from "../../../common/enums/routes/routes";
 import {useAppSelector} from "../../../hooks/useAppSelector";
 import {useDispatch} from "react-redux";
+import {LocalKey} from "../../../common/enums/app/app";
 
 const Navigation: FC<HTMLAttributes<HTMLElement>> = (props) => {
 
@@ -19,7 +20,7 @@ const Navigation: FC<HTMLAttributes<HTMLElement>> = (props) => {
     const navigate = useNavigate();
 
     const onSignOut = () => {
-        localStorage.removeItem('token');
+        localStorage.removeItem(LocalKey.TOKEN);
         navigate(Routes.SignIn);
     }
 

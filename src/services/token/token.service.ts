@@ -1,18 +1,16 @@
 export class Token {
+    private readonly key: string;
+
+    constructor(key: string) {
+        this.key = key;
+    }
+
     setToken(value: string) {
-        localStorage.setItem('token', value);
+        localStorage.setItem(this.key, value);
     }
 
     getToken(): string | null {
-        return localStorage.getItem('token');
-    }
-
-    removeToken() {
-        localStorage.removeItem('token');
-    }
-
-    isHasToken() {
-        return localStorage.getItem('token');
+        return localStorage.getItem(this.key);
     }
 }
 

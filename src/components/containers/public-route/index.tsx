@@ -7,20 +7,11 @@ import {DataStatus} from "../../../common/enums/app/data-status.enum";
 import Loader from "../../common/loader/loader";
 import {authActions} from "../../../store/actions";
 import {useAppSelector} from "../../../hooks/useAppSelector";
+import {useAuth} from "../../../hooks/useAuth";
 
 const PublicRoute = (props: RouteProps) => {
     const {element} = props;
-    const dispatch = useDispatch();
-    const {status, user} = useAppSelector(({authReducer})=>{
-        return {
-            status: authReducer.status,
-            user: authReducer.user
-        }
-    });
-
-    useEffect(() => {
-        dispatch(authActions.authenticatedUser() as any);
-    }, [dispatch])
+    const {status, isAuthorized} = useAuth();
 
     if (status === DataStatus.PENDING) {
         return (
@@ -30,7 +21,6 @@ const PublicRoute = (props: RouteProps) => {
         );
     }
 
-    const isAuthorized = Boolean(localStorage.getItem("token"));
     return (
         isAuthorized
         ? <Navigate to={Routes.Main}/>
