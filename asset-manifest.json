@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/travel-booking-app/static/css/main.de74b46a.css",
+    "main.js": "/travel-booking-app/static/js/main.e0820f4f.js",
+    "static/js/787.d06b42a6.chunk.js": "/travel-booking-app/static/js/787.d06b42a6.chunk.js",
+    "static/media/iceland.jpg": "/travel-booking-app/static/media/iceland.5e46daaf0fc221a3f7af.jpg",
+    "index.html": "/travel-booking-app/index.html",
+    "static/media/heart.svg": "/travel-booking-app/static/media/heart.9d3f544e1c43c86490e1c6c0ad600301.svg",
+    "static/media/calendar.svg": "/travel-booking-app/static/media/calendar.6871d853ae432343c256a3fded118bb9.svg",
+    "static/media/briefcase.svg": "/travel-booking-app/static/media/briefcase.9d5ef3df5198ec750405ea7e2eab696d.svg",
+    "static/media/search.svg": "/travel-booking-app/static/media/search.cf6848d842b699143d77d9396348b9c3.svg",
+    "static/media/user.svg": "/travel-booking-app/static/media/user.148b0b49128922489896d0bc83e4fa73.svg",
+    "static/media/arrow-down.svg": "/travel-booking-app/static/media/arrow-down.648db598f3a41271556e58261353e542.svg",
+    "main.de74b46a.css.map": "/travel-booking-app/static/css/main.de74b46a.css.map",
+    "main.e0820f4f.js.map": "/travel-booking-app/static/js/main.e0820f4f.js.map",
+    "787.d06b42a6.chunk.js.map": "/travel-booking-app/static/js/787.d06b42a6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.de74b46a.css",
+    "static/js/main.e0820f4f.js"
+  ]
+}
